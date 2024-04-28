@@ -17,16 +17,16 @@ $surveyDAO = new SurveyDAO($conn);
 $survey = $surveyDAO->getSurveysByCourse($COURSE->id);
 
 foreach ($survey as $s) {
-    if($results['survey_id'] != $s['survey_id']){
-        unset($s);
+    if(isset($results['survey_id']) && isset($s['survey_id'])){
+        if($results['survey_id'] != $s['survey_id']){
+            unset($s);
+        }
     }
 }
 
 if($survey){
     $data->events = array_values($survey);
 } 
-
-
 
 echo $OUTPUT->header();
 echo $OUTPUT->render_from_template("local_survey/userDashboard", $data);

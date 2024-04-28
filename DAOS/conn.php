@@ -4,7 +4,7 @@ class conn {
     private $host = "localhost";
     private $user = "admin";
     private $pass = "admin";
-    private $dbname = "moodle";
+    private $dbname = "surveyframework";
 
     public function __construct() {
         try{

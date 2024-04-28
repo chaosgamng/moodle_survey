@@ -41,7 +41,20 @@
                     $sql = "SELECT * FROM question";
                     $stmt = $this->pdo->prepare($sql);
                     $stmt->execute();
-                    return $stmt->fetch(PDO::FETCH_ASSOC);
+                    return $stmt->fetchall(PDO::FETCH_ASSOC);
+                }
+            }catch(Exception $e){
+                echo "select question error: " .$e->getMessage();
+            }
+        }
+
+        function selectSurveyQuestion($survey){
+            try{
+                if($survey){
+                    $sql = "SELECT * FROM question WHERE survey_id = ?";
+                    $stmt = $this->pdo->prepare($sql);
+                    $stmt->execute([$survey]);
+                    return $stmt->fetchall(PDO::FETCH_ASSOC);
                 }
             }catch(Exception $e){
                 echo "select question error: " .$e->getMessage();

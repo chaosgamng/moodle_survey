@@ -16,7 +16,7 @@ class SurveyDAO {
      */
     public function createSurvey($title, $description, $creator_id, $course_id, $status) {
         try {
-            $sql = "INSERT INTO mdl_survey (title, description, creator_id, course_id, status) VALUES ( ?, ?, ?, ?, ?)";
+            $sql = "INSERT INTO survey (title, description, creator_id, course_id, status) VALUES ( ?, ?, ?, ?, ?)";
             $stmt = $this->pdo->prepare($sql);
             $stmt->execute([ $title, $description, $creator_id, $course_id, $status]);
         } catch(Exception $e){
@@ -32,7 +32,7 @@ class SurveyDAO {
      */
     public function getSurvey($survey_id) {
         try{
-            $sql = "SELECT * FROM mdl_survey WHERE survey_id = ?";
+            $sql = "SELECT * FROM survey WHERE survey_id = ?";
             $stmt = $this->pdo->prepare($sql);
             $stmt->execute([$survey_id]);
             return $stmt->fetch(PDO::FETCH_ASSOC);
@@ -50,7 +50,7 @@ class SurveyDAO {
      */
     public function updateSurvey($survey_id, $title, $description, $status) {
         try{
-            $sql = "UPDATE mdl_survey SET title = :title, description = :desc, status = :stat WHERE survey_id = :id";
+            $sql = "UPDATE survey SET title = :title, description = :desc, status = :stat WHERE survey_id = :id";
             $stmt = $this->pdo->prepare($sql);
             $stmt->bindParam(':title', $title);
             $stmt->bindParam(':desc', $description);
@@ -69,7 +69,7 @@ class SurveyDAO {
      */
     public function deleteSurvey($survey_id) {
         try{
-            $sql = "DELETE FROM mdl_survey WHERE survey_id = :survey";
+            $sql = "DELETE FROM survey WHERE survey_id = :survey";
             $stmt = $this->pdo->prepare($sql);
             $stmt->bindParam(':survey', $survey_id);
             $stmt->execute();
@@ -83,7 +83,7 @@ class SurveyDAO {
      */
     public function getAllSurveys() {
         try{
-            $sql = "SELECT * FROM mdl_survey";
+            $sql = "SELECT * FROM survey";
             $stmt = $this->pdo->prepare($sql);
             $stmt->execute();
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -98,7 +98,7 @@ class SurveyDAO {
      */
     public function getSurveysByCreator($creator_id) {
         try{
-            $sql = "SELECT * FROM mdl_survey WHERE creator_id = ?";
+            $sql = "SELECT * FROM survey WHERE creator_id = ?";
             $stmt = $this->pdo->prepare($sql);
             $stmt->execute([$creator_id]);
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -113,7 +113,7 @@ class SurveyDAO {
      */
     public function getSurveysByCourse($course_id) {
         try{
-            $sql = "SELECT * FROM mdl_survey WHERE course_id = ?";
+            $sql = "SELECT * FROM survey WHERE course_id = ?";
             $stmt = $this->pdo->prepare($sql);
             $stmt->execute([$course_id]);
             return $stmt->fetchAll(PDO::FETCH_ASSOC);

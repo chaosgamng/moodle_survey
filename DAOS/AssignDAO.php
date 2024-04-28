@@ -14,7 +14,7 @@
          */
         function insertAssign($survey_id, $user_id){
             try{
-                $sql = "INSERT INTO mdl_assign (survey_id, student_id) VALUES (:survey, :user)";
+                $sql = "INSERT INTO assign (survey_id, student_id) VALUES (:survey, :user)";
                 $stmt = $this->pdo->prepare($sql);
                 $stmt->bindParam(':survey', $survey_id);
                 $stmt->bindParam(':user', $user_id);
@@ -32,7 +32,7 @@
         // read function - CT
         function selectAssign($user_id){
             try{
-                $sql = "SELECT * FROM mdl_assign WHERE student_id = :user";
+                $sql = "SELECT * FROM assign WHERE student_id = :user";
                 $stmt = $this->pdo->prepare($sql);
                 $stmt->bindParam(':user', $user_id);
                 $stmt->execute();
@@ -52,7 +52,7 @@
         function deleteAssign($survey_id, $user_id){
         try{
             // Query SQL DELETE Statement:
-            $sql = "DELETE FROM  mdl_assign  WHERE student_id = :user AND survey_id = :survey"; 
+            $sql = "DELETE FROM  assign  WHERE student_id = :user AND survey_id = :survey"; 
             // Sets up the DELETE statement to be "prepared" (Pun-unintended, lmao).
             $stmt = $this->pdo->prepare($sql); 
             $stmt->bindValue(':user', $user_id);

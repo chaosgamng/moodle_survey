@@ -50,13 +50,11 @@
     <table border='1'  style="max-width: 750px;">
         <tr>
             <th> Question </th>
-            <th> Response </th>
         </tr>
         
         {{#events}}
             <tr>
                 <td> {{text}} </td>
-                <td> <textarea rows="5" cols="40" name="{{question_id}}" id="{{question_id}}" maxlength="250" placeholder="answer here"></textarea>   </td>
             </tr>
         {{/events}}
     </table>
