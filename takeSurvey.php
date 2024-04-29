@@ -16,6 +16,7 @@ $questions = new QuestionDAO($con);
 $results = $questions->selectSurveyQuestion($data);
 if($results){
     $d->events = array_values($results);
+    $d->survey = $data;
 } 
 
 echo $OUTPUT->header();

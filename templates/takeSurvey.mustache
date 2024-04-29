@@ -45,7 +45,7 @@
     <div>
     <h1 class="tlabels">Questions</h1>
     <div class="vertical-menu">
-    <form action="/moodle/local/survey/capture.php" method="POST" style=" background-color: #fff; box-shadow: 2px 5px 10px rgba(0, 0, 0, 0.5); max-width: 750px;">
+    <form action="/moodle/local/survey/capture.php?id={{survey}}" method="POST" style=" background-color: #fff; box-shadow: 2px 5px 10px rgba(0, 0, 0, 0.5); max-width: 750px;">
     <br>
     <table border='1'  style="max-width: 750px;">
         <tr>
@@ -55,15 +55,19 @@
         
         {{#events}}
             <tr>
+            <center>
                 <td> {{text}} </td>
-                <td> <textarea rows="5" cols="40" name="{{question_id}}" id="{{question_id}}" maxlength="250" placeholder="answer here"></textarea>   </td>
+                {{#include_rating}}
+                    <td style="padding: 10px;"> <select style="width: 5rem; margin-left: 35%;" name="rating{{question_id}}"><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option></select> </td>
+                {{/include_rating}}
+                {{^include_rating}}
+                    <td> <textarea rows="5" cols="40" name="question{{question_id}}" id="question{{question_id}}" maxlength="250" placeholder="answer here"></textarea>   </td>
+                {{/include_rating}}
+            </center>
             </tr>
         {{/events}}
     </table>
+    <input type='hidden' name='{{survey}}' value='{{survey}}'>
     <input type="submit" style="margin: 2%; width: 100px;"></input>
     </form>
-    </div>
-</center>
 </div>
-</body>
-</html>

@@ -24,19 +24,29 @@ class ResponseDAO
      * @param Response $response The Response object to be inserted into the database.
      * @return bool True if the insertion is successful, false otherwise.
      */
-    function insertResponse($question_id, $user_id, $text)
+    function insertResponse($question_id, $user_id, $text, $rating = null)
     {
         try {
-            $sql = "INSERT INTO response (question_id, user_id, text) VALUES (?, ?, ?)";
+            // Check if the user has already responded to this question
+            $sql = "SELECT * FROM response WHERE question_id = ? AND user_id = ?";
             $stmt = $this->pdo->prepare($sql);
+            $stmt->execute([$question_id, $user_id]);
 
-            if ($stmt->execute([$question_id, $user_id, $text])) {
+            if ($stmt->rowCount() > 0) {
+                $response_id = $stmt->fetch(PDO::FETCH_ASSOC)['response_id'];
+                $this->updateResponse($response_id, $question_id, $user_id, $text, $rating);
+                return true;
+            }
+
+            $sql = "INSERT INTO response (question_id, user_id, text, rating) VALUES (?, ?, ?, ?)";
+            $stmt = $this->pdo->prepare($sql);
+            if ($stmt->execute([$question_id, $user_id, $text, $rating])) {
                 return true;
             } else {
                 return false;
             }
         } catch (Exception $e) {
-            echo "create response error: " .$e->getMessage();
+            echo "create response error: " . $e->getMessage();
             return false;
         }
     }

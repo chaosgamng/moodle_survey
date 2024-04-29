@@ -91,10 +91,11 @@ class UserDAO{
      * @param string deparment
      * @param string major
      */
-    public function insertUser($firstName, $lastName, $email, $password, $role, $department, $major) {
+    public function insertUser($id, $firstName, $lastName, $email, $password, $role, $department, $major) {
         try {
-            $sql = "INSERT INTO user (first_name, last_name, email, password, role, department, major) VALUES (:fname, :lname, :email, :pass, :role, :dep, :major)";
+            $sql = "INSERT INTO user (user_id, first_name, last_name, email, password, role, department, major) VALUES (:id, :fname, :lname, :email, :pass, :role, :dep, :major)";
             $stmt = $this->pdo->prepare($sql);
+            $stmt->bindValue(':id', $id);
             $stmt->bindValue(':fname', $firstName);
             $stmt->bindValue(':lname', $lastName);
             $stmt->bindValue(':email', $email);
