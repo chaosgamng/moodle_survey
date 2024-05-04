@@ -14,7 +14,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $responseDAO = new ResponseDAO($conn);
     $survey_id = $_GET['id'];
     $assignDAO = new AssignDAO($conn);
-    // $assignDAO->deleteAssign($survey_id, $USER->id);
+    $assignDAO->deleteAssign($survey_id, $USER->id);
     foreach ($_POST as $key => $value) {
         if (strpos($key, 'question') !== false) {
             $question_id = str_replace('question', '', $key);

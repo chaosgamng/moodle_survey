@@ -22,6 +22,22 @@ class UserDAO{
             return false;
         }
     }
+
+    // Get professors
+    public function getProfessors()
+    {
+        try {
+            $sql = "SELECT user_id, first_name, last_name FROM user WHERE role = 'professor'";
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->execute();
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            echo "get professors error: " . $e->getMessage();
+            return false;
+        }
+    }
+
+    
     /**
      * This function updates a user record.
      * @param int $userId
